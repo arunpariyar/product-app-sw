@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ProductCard from "./components/ProductCard.vue";
 import type { Product } from "@/types/product";
 import { getImageName } from "#imports";
 const url =
@@ -32,16 +33,14 @@ function searchByName(query: string) {
       v-model="searchQuery"
       @keydown.enter="searchByName(searchQuery)"
     />
-    <div v-for="product in listings">
-      <div
-        :style="{
-          backgroundImage: `url(${getImageName(product.filename)})`,
-          height: `${product.height}px`,
-          width: `${product.width}px`,
-        }"
-        class="bg-cover bg-center"
-      ></div>
-      <p class="text-red">{{ product.title }}</p>
+    <div
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-5 md:gap-10 md:p-10"
+    >
+      <ProductCard
+        v-for="product in listings"
+        :filename="product.filename"
+        :title="product.title"
+      />
     </div>
   </div>
 </template>
