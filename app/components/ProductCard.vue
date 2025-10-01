@@ -17,9 +17,13 @@ const props = defineProps<ProductCardProps>();
         :style="{ objectFit: 'cover' }"
       />
     </div>
-    <div class="flex justify-between py-5">
-      <p>{{ title }}</p>
-      <button>More</button>
+    <div class="flex flex-col py-5 gap-3">
+      <p class="text-s text-center">{{ title }}</p>
+      <button
+        class="rounded-[10px] cursor-pointer bg-[var(--blue-500)] px-3 px-3 text-[18px]"
+      >
+        view
+      </button>
     </div>
   </div>
 </template>
