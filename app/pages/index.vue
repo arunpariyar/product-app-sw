@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ProductCard from "~/components/ProductCard.vue";
 import type { Product } from "@/types/product";
-import { getImageName } from "#imports";
+
 const url =
   "https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/products.json";
 
@@ -16,11 +16,17 @@ const products = computed<Product[]>(() => {
 });
 
 const listings = ref<Product[]>(products.value);
+let listingWithId = listings.value.map((item, index) => ({
+  ...item,
+  id: index.toString(),
+}));
+
+provide("listingsData", listingWithId);
 
 const searchQuery = ref("");
 
 function searchByName(query: string) {
-  listings.value = products.value.filter((product) =>
+  listingWithId = listingWithId.filter((product) =>
     product.title.includes(query)
   );
 }
@@ -44,10 +50,11 @@ function searchByName(query: string) {
       class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-5 md:gap-10 md:p-10"
     >
       <ProductCard
-        v-for="product in listings"
-        :key="`${product.filename}+${product.title}`"
+        v-for="product in listingWithId"
+        :key="product.id"
         :filename="product.filename"
         :title="product.title"
+        :id="product.id"
       />
     </div>
   </div>

@@ -3,6 +3,7 @@ import { getImageName } from "#imports";
 interface ProductCardProps {
   filename: string;
   title: string;
+  id: string;
 }
 
 const props = defineProps<ProductCardProps>();
@@ -18,12 +19,14 @@ const props = defineProps<ProductCardProps>();
       />
     </div>
     <div class="flex flex-col py-5 gap-3">
-      <p class="text-s text-center">{{ title }}</p>
-      <button
-        class="rounded-[10px] cursor-pointer bg-[var(--blue-500)] px-3 px-3 text-[18px]"
+      <p class="text-s text-center">{{ props.title }}</p>
+
+      <NuxtLink
+        class="rounded-[10px] cursor-pointer bg-[var(--blue-500)] px-3 px-3 text-[18px] text-center"
+        :to="`/items/${props.id}`"
       >
-        view
-      </button>
+        View
+      </NuxtLink>
     </div>
   </div>
 </template>
